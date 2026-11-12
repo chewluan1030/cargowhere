@@ -5,7 +5,71 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [
+      react(),
+      tailwindcss(),
+      {
+        name: 'api-serverless-middleware',
+        configureServer(server) {
+          server.middlewares.use(async (req, res, next) => {
+            if (!req.url) return next();
+            const [pathname] = req.url.split('?');
+
+            if (pathname === '/api/health') {
+              try {
+                const { default: handler } = await server.ssrLoadModule('/api/health.ts');
+                const parsedRes = {
+                  status(code: number) {
+                    res.statusCode = code;
+                    return parsedRes;
+                  },
+                  setHeader(name: string, val: string) {
+                    res.setHeader(name, val);
+                    return parsedRes;
+                  },
+                  json(data: unknown) {
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(JSON.stringify(data));
+                  },
+                };
+                return handler(req as any, parsedRes as any);
+              } catch (err) {
+                res.statusCode = 500;
+                res.setHeader('Content-Type', 'application/json');
+                return res.end(JSON.stringify({ error: String(err) }));
+              }
+            }
+
+            if (pathname === '/api/carparkavailability') {
+              try {
+                const { default: handler } = await server.ssrLoadModule('/api/carparkavailability.ts');
+                const parsedRes = {
+                  status(code: number) {
+                    res.statusCode = code;
+                    return parsedRes;
+                  },
+                  setHeader(name: string, val: string) {
+                    res.setHeader(name, val);
+                    return parsedRes;
+                  },
+                  json(data: unknown) {
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(JSON.stringify(data));
+                  },
+                };
+                return handler(req as any, parsedRes as any);
+              } catch (err) {
+                res.statusCode = 500;
+                res.setHeader('Content-Type', 'application/json');
+                return res.end(JSON.stringify({ error: String(err) }));
+              }
+            }
+
+            next();
+          });
+        },
+      },
+    ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
