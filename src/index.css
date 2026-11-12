@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme static {
+  /* Singapore expressway emerald, tropical limestone ground, deep monsoon asphalt ink, amber gantry counter */
+  --color-background: oklch(0.962 0.008 155);
+  --color-surface: oklch(0.994 0.003 155);
+  --color-foreground: oklch(0.205 0.026 185);
+  --color-muted: oklch(0.425 0.022 185);
+  --color-border: oklch(0.555 0.02 180);
+
+  --color-primary: oklch(0.435 0.125 162);
+  --color-primary-foreground: oklch(0.992 0.004 160);
+
+  --color-accent: oklch(0.46 0.135 58);
+  --color-danger: oklch(0.455 0.165 26);
+  --color-water: oklch(0.915 0.024 215);
+  --color-land: oklch(0.978 0.009 145);
+
+  --font-sans: "Instrument Sans", sans-serif;
+  --font-mono: "Geist Mono", monospace;
+
+  --text-display: clamp(1.75rem, 1.3rem + 1.1vw, 2.375rem);
+  --text-display--line-height: 1.1;
+  --text-display--font-weight: 600;
+
+  --text-title: clamp(1.125rem, 1.02rem + 0.35vw, 1.3125rem);
+  --text-title--line-height: 1.2;
+  --text-title--font-weight: 600;
+
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.55;
+
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.35;
+
+  --radius-card: 0.5rem;
+  --radius-control: 0.375rem;
+  --shadow-surface: 0 1px 2px oklch(0.205 0.026 185 / 0.05);
+}
+
+html {
+  font-family: var(--font-sans);
+  font-synthesis-weight: none;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+.carto-halo {
+  paint-order: stroke;
+  stroke: var(--color-surface);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.carto-halo-land {
+  paint-order: stroke;
+  stroke: var(--color-land);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *:not(.animate-spin):not(.animate-pulse),
+  *:not(.animate-spin):not(.animate-pulse)::before,
+  *:not(.animate-spin):not(.animate-pulse)::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

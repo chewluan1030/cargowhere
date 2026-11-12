@@ -1,0 +1,6 @@
+{
+  "name": "LotWatch SG",
+  "description": "Real-time Singapore carpark lot availability tracker across HDB, LTA, and URA carparks with interactive island locator map, EPS fee calculator, and backend-ready feed architecture.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
